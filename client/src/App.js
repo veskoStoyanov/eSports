@@ -1,9 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 // Libraries
-
 // Modules
-
 // Pages
 import { Home } from './pages';
 
