@@ -4,6 +4,8 @@
   "description": "Server for front-end task at UltraPlay",
   "main": "server.js",
   "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,9 +19,14 @@
   },
   "homepage": "https://github.com/UltraplayCareers/Sportsbook#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "cors": "^2.8.4",
+    "dotenv": "^11.0.0",
     "express": "^4.16.3",
-    "isomorphic-fetch": "^2.2.1",
+    "express-openapi": "^10.0.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "swagger-ui-express": "^4.3.0",
     "xml2js": "^0.4.19"
   }
 }

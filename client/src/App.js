@@ -6,12 +6,16 @@ import { Routes, Route } from 'react-router-dom';
 import { Home } from './pages';
 
 // Components
+import { Header } from './components';
 
 const App = () => {
 	return (
-		<Routes>
-			<Route path="/" exact element={<Home />} />
-		</Routes>
+		<>
+			<Header />
+			<Routes>
+				<Route path="/" exact element={<Home />} />
+			</Routes>
+		</>
 	);
 };
 
