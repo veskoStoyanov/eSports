@@ -1,8 +1,5 @@
-### Interested in joining UltraPlay's team of front-end developers?
-
-In this repository you will find the requirements for the task you've been given.
-
 ### How to start?
 
-You can setup the server by running `npm install` followed by a `npm start`.  
-If there are any problems with the server you can file an issue to this repository or write us an email. 
+You can setup the server by running `npm install` followed by a `npm run dev`.  
+You can setup the client by running `npm install` followed by a `npm start`.
+You can check and test the api endpoints and see the documentation and examples on http://localhost:5000/swagger/ 
