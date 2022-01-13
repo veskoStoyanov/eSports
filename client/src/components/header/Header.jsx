@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -61,7 +60,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Header = () => {
+const Header = ({ setToggleDrawer }) => {
   const classes = useStyles();
   const { allSports } = useSelector((state) => state.sportsState);
   const dispatch = useDispatch();
@@ -70,40 +69,10 @@ const Header = () => {
     dispatch
   );
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-
-  const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
-
-  const handleMenuClose = () => setAnchorEl(null);
-
   const handleSearchSport = (e) => {
     const matches = allSports.matches.filter(match => match.sport.toLowerCase().includes(e.target.value.toLowerCase()))
     changeSportsState({ ...allSports, matches });
   };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -140,17 +109,15 @@ const Header = () => {
               size="large"
               edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
               color="inherit"
+              onClick={() => setToggleDrawer(true)}
             >
               <AccountCircle />
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
-      {renderMenu}
     </Box>
   );
 }

@@ -11,7 +11,8 @@ import { Button } from '@mui/material';
 import TableHead from './TableHead';
 import TableRow from './TableRow';
 // Modules
-import { getSports, generateUnicId } from '../../modules/api';
+import { getSports } from '../../modules/api';
+import { generateUnicId } from '../../modules';
 
 // Actions
 import { sportsActions } from '../../store/actions';

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
 import store from './store';
 import GlobalStyle from './globalStyle';
+import './firebase';
 
 import App from './App';
 
