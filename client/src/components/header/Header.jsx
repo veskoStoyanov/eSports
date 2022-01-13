@@ -1,18 +1,17 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { styled, alpha } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import { AppBar, Box, Toolbar, IconButton, InputBase, Badge, MenuItem, Menu } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+
+// Actions
+import { sportsActions } from '../../store/actions';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -63,6 +62,13 @@ const useStyles = makeStyles(() => ({
 
 const Header = () => {
   const classes = useStyles();
+  const { allSports } = useSelector((state) => state.sportsState);
+  const dispatch = useDispatch();
+  const { changeSportsState } = bindActionCreators(
+    sportsActions,
+    dispatch
+  );
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -70,6 +76,11 @@ const Header = () => {
   const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
 
   const handleMenuClose = () => setAnchorEl(null);
+
+  const handleSearchSport = (e) => {
+    const matches = allSports.matches.filter(match => match.sport.toLowerCase().includes(e.target.value.toLowerCase()))
+    changeSportsState({...allSports, matches});
+  };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -95,7 +106,7 @@ const Header = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar  position="static">
+      <AppBar position="static">
         <Toolbar>
           <img className={classes.logo} src='https://ultraplay.co/wp-content/themes/UltraPlay/images/up_logo.png' alt='logo' />
           <Search>
@@ -105,6 +116,7 @@ const Header = () => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleSearchSport}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

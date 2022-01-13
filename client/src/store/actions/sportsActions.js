@@ -1,7 +1,13 @@
-import { CHANGE_SPORTS_STATE, } from '../../constants/store';
+import { SET_INITIAL_SPORTS_STATE, CHANGE_SPORTS_STATE } from '../../constants/store';
 
-export const changeSportsState = (userData) => (dispatch) =>
+export const setInitialSportsState = (sports) => (dispatch) =>
+	dispatch({
+		type: SET_INITIAL_SPORTS_STATE,
+		payload: sports,
+});
+
+export const changeSportsState = (sports) => (dispatch) =>
 	dispatch({
 		type: CHANGE_SPORTS_STATE,
-		payload: userData,
-	});
+		payload: sports,
+});
