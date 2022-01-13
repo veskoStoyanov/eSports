@@ -1,5 +1,6 @@
 const xml2js = require('xml2js').parseString;
 const axios = require('axios');
+const { format} = require('date-and-time');
 
 const parseXmlToJSON = (data) =>
 	new Promise((resolve, reject) => {
@@ -25,7 +26,10 @@ const fetch = (url, method = 'GET', data) => {
 	return axios(options);
 };
 
+const formatDate = (date, formatter) => format(new Date(date), formatter);
+
 module.exports = {
 	parseXmlToJSON,
 	fetch,
+	formatDate
 };

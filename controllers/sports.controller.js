@@ -1,6 +1,6 @@
-const { urls } = require('../config');
+const { urls, dateFormatter } = require('../config');
 
-const { fetch, parseXmlToJSON } = require('../modules');
+const { fetch, parseXmlToJSON, formatDate } = require('../modules');
 
 const getAllSports = async () => {
 	try {
@@ -8,51 +8,36 @@ const getAllSports = async () => {
 		const result = await parseXmlToJSON(data);
 
 		const sports = result?.XmlSports?.Sport[0];
-		const events = sports.Event.reduce((accEvents, currEvents) => {
-			const matches = currEvents['Match'].reduce((accMatches, currMatches) => {
+
+		let matches = [];
+		sports.Event.forEach((event) => {
+			const currMatches = event['Match'].reduce((accMatches, currMatches) => {
 				const match = {
 					isLive: currMatches['$']['IsLive'],
 					name: currMatches['$']['Name'],
 					matchType: currMatches['$']['MatchType'],
-					startDate: currMatches['$']['StartDate'],
+					startDate: formatDate(
+						currMatches['$']['StartDate'],
+						dateFormatter.sports
+					),
+					sport: event['$'].Name,
 				};
 
-				match.bets = [1.5, 1.5]
-
-				// match.bets = currMatches.Bet
-				// 	? currMatches.Bet.reduce((accBets, currBets) => {
-				// 			const odds = currBets.Odd.map((odd) => ({
-				// 				name: odd['$']['Name'],
-				// 				value: odd['$']['Value'],
-				// 				id: odd['$']['ID'],
-				// 			}));
-
-				// 			const bet = {
-				// 				isLive: currBets['$']['IsLive'],
-				// 				name: currBets['$']['Name'],
-				// 				id: currBets['$']['ID'],
-				// 				odds,
-				// 			};
-
-				// 			return [...accBets, bet];
-				// 	  }, [])
-				// 	: [];
+				match.bets = !currMatches.Bet
+					? []
+					: currMatches.Bet[0].Odd.map((odd) => odd['$'].Value);
 
 				return [...accMatches, match];
 			}, []);
 
-			const event = {
-				isLive: currEvents['$']['IsLive'],
-				name: currEvents['$']['Name'],
-				id: currEvents['$']['ID'],
-				categoryId: currEvents['$']['CategoryID'],
-				matches,
-			};
+			matches.push(...currMatches);
+		});
 
-			return [...accEvents, event];
-		}, []);
+		matches = matches.sort(
+			(a, b) => new Date(a.startDate) - new Date(b.startDate)
+		);
 
-		return { name: sports['$']['Name'], events };
+		return { name: sports['$']['Name'], matches };
 	} catch (e) {
 		throw new Error(e);
 	}
