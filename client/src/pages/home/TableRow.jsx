@@ -14,13 +14,15 @@ const useStyles = makeStyles(() => ({
 const TableRow = ({ name, startDate, bets }) => {
     const classes = useStyles();
 
-    return (<tr className={classes.root}>
-        <td>{startDate}</td>
-        <td style={{ textAlign: 'left' }}>{name}</td>
-        <td>{bets[0] || <LockIcon fontSize="small" />}</td>
-        <td></td>
-        <td>{bets[1] || <LockIcon fontSize="small" />}</td>
-    </tr>)
+    return (<tbody>
+        <tr className={classes.root}>
+            <td>{startDate}</td>
+            <td style={{ textAlign: 'left' }}>{name}</td>
+            <td>{bets[0] || <LockIcon fontSize="small" />}</td>
+            <td></td>
+            <td>{bets[1] || <LockIcon fontSize="small" />}</td>
+        </tr>
+    </tbody>)
 }
 
 export default TableRow;

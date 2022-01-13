@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import { styled, alpha } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
+
 import { AppBar, Box, Toolbar, IconButton, InputBase, Badge, MenuItem, Menu } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -79,7 +80,7 @@ const Header = () => {
 
   const handleSearchSport = (e) => {
     const matches = allSports.matches.filter(match => match.sport.toLowerCase().includes(e.target.value.toLowerCase()))
-    changeSportsState({...allSports, matches});
+    changeSportsState({ ...allSports, matches });
   };
 
   const menuId = 'primary-search-account-menu';

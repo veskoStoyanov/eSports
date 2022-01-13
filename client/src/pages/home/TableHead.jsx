@@ -13,12 +13,14 @@ const useStyles = makeStyles(() => ({
 const TableHead = ({ sport }) => {
     const classes = useStyles();
 
-    return (<tr className={classes.root}>
+    return (<thead>
+        <tr className={classes.root}>
         <th style={{ textAlign: 'left' }}>{sport}</th>
         <th>1</th>
         <th>X</th>
         <th>2</th>
-    </tr>)
+    </tr>
+    </thead>)
 }
 
 export default TableHead;

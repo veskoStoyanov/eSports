@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 
 import { bindActionCreators } from 'redux';
+
 // Styled Components
 import { Wrapper } from './Home.style';
 
@@ -11,7 +12,6 @@ import TableHead from './TableHead';
 import TableRow from './TableRow';
 // Modules
 import { getSports, generateUnicId } from '../../modules/api';
-
 
 // Actions
 import { sportsActions } from '../../store/actions';
@@ -34,7 +34,7 @@ const Home = () => {
     );
 
     const { sports } = useSelector((state) => state.sportsState);
-    // const [sports, setSports] = useState(null);
+    
     const [sortedByTime, setSortedByTime] = useState(true);
 
     const initial = async () => {
@@ -80,7 +80,7 @@ const Home = () => {
 
             <table className={classes.table}>
                 {
-                    sports.matches.map((match, i) => <div key={generateUnicId()} style={{ width: '100%' }}>
+                    sports.matches.map((match, i) => <Fragment key={generateUnicId()}>
 
                         {
                             sports.matches[i - 1] && sports.matches[i - 1].sport === match.sport ? <></> : (<TableHead sport={match.sport} />)
@@ -91,7 +91,7 @@ const Home = () => {
                             startDate={match.startDate}
                             bets={match.bets}
                         />
-                    </div>)
+                    </Fragment>)
                 }
 
             </table>
