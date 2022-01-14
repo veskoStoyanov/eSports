@@ -8,8 +8,7 @@ import { bindActionCreators } from 'redux';
 import { Wrapper } from './Home.style';
 
 import { Button } from '@mui/material';
-import TableHead from './TableHead';
-import TableRow from './TableRow';
+
 import Modal from './Modal';
 // Modules
 import { getSports, postBet, fetchBets } from '../../modules/api';
@@ -18,12 +17,18 @@ import { generateUnicId } from '../../modules';
 // Actions
 import { sportsActions, userActions } from '../../store/actions';
 
+import MTable from './MTable'
+
 const useStyles = makeStyles(() => ({
     table: {
         width: '100%',
         '& tr': {
             padding: '5px 0'
         }
+    },
+    title: {
+        display: 'flex',
+        justifyContent: 'space-between'
     }
 }));
 
@@ -50,7 +55,7 @@ const Home = () => {
     const initial = async () => {
         try {
             const { data } = await getSports();
-            setInitialSportsState(data);   
+            setInitialSportsState(data);
         } catch (e) {
             console.log(e);
         }
@@ -75,6 +80,10 @@ const Home = () => {
     };
 
     const handleOpenModal = (bet) => {
+        if (!user) {
+            return;
+        }
+        
         setOpen(true);
         setBet(bet);
     };
@@ -101,7 +110,7 @@ const Home = () => {
 
     useEffect(() => {
         getUserBets();
-    }, [ user ]);
+    }, [user]);
 
     if (!sports) {
         return <></>;
@@ -113,32 +122,13 @@ const Home = () => {
                 className={classes.title}>
                 {sports.name}
                 <Button
+                    style={{ backgroundColor: '#757de8' }}
                     onClick={() => sortedByTime ? sortSportsByLeagues() : sortSportsByTime()}
                     variant="contained" color="success" size="large">
                     {sortedByTime ? ' Sort by league' : 'Sort by time'}
                 </Button>
             </h1>
-
-            <table className={classes.table}>
-                {
-                    sports.matches.map((match, i) => <Fragment key={generateUnicId()}>
-
-                        {
-                            sports.matches[i - 1] && sports.matches[i - 1].sport === match.sport ? <></> : (<TableHead sport={match.sport} />)
-                        }
-
-                        <TableRow
-                            name={match.name}
-                            startDate={match.startDate}
-                            bets={match.bets}
-                            handleOpenModal={handleOpenModal}
-                            setOpen={setOpen}
-
-                        />
-                    </Fragment>)
-                }
-
-            </table>
+            <MTable handleOpenModal={handleOpenModal} generateUnicId={generateUnicId} matches={sports.matches} />
             <Modal createBet={createBet} bet={bet} setOpen={setOpen} open={open} />
         </Wrapper>
     )
