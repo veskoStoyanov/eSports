@@ -32,6 +32,12 @@ const Profile = ({
 		updateBetState(data);
 	};
 
+	const handleLoggedOut = async () => {
+		console.log('start logged out...');
+		await signOut(auth)
+		console.log('logged out...');
+	}
+
 	return (
 		<>
 			<Grid container>
@@ -69,7 +75,7 @@ const Profile = ({
 			</Grid>
 			<Button
 				style={{ display: 'block', width: '100%' }}
-				onClick={() => signOut(auth)}
+				onClick={handleLoggedOut}
 				variant="contained"
 			>
 				Logout

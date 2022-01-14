@@ -98,7 +98,6 @@ const Home = ({ setToggleDrawer }) => {
         }
         try {
             const { data } = await postBet(body, user.uid);
-            console.log(data)
             addBet(data);
         } catch (e) {
             console.log(e);

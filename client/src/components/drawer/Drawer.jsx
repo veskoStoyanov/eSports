@@ -35,9 +35,9 @@ const Drawer = ({ toggleDrawer, setToggleDrawer }) => {
                 sx={{ width: user ? 550 : 250 }}
                 role="presentation"
             >
-                 {isDrawerLeft ? <IconButton onClick={() => setIsDrawerLeft((prev) => !prev)}><ArrowCircleRightIcon fontSize="large" /></IconButton> : <IconButton onClick={() => setIsDrawerLeft((prev) => !prev)} ><ArrowCircleLeftIcon fontSize="large" /></IconButton>}
+                {isDrawerLeft ? <IconButton onClick={() => setIsDrawerLeft((prev) => !prev)}><ArrowCircleRightIcon fontSize="large" /></IconButton> : <IconButton onClick={() => setIsDrawerLeft((prev) => !prev)} ><ArrowCircleLeftIcon fontSize="large" /></IconButton>}
                 <Container style={{ marginTop: 50 }}>
-                   
+
                     {user ? <Profile deleteBet={deleteBet}
                         removeBet={removeBet} updateBetState={updateBetState} uid={user.uid} putBets={putBets} bets={bets} signOut={signOut} auth={auth} /> : <Form auth={auth} createUserWithEmailAndPassword={createUserWithEmailAndPassword} signInWithEmailAndPassword={signInWithEmailAndPassword} setToggleDrawer={setToggleDrawer} />}
                 </Container>

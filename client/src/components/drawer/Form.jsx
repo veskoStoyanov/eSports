@@ -12,7 +12,9 @@ const Form = ({ setToggleDrawer, createUserWithEmailAndPassword, auth, signInWit
 
     const handleRegister = async () => {
         try {
+            console.log('start logged in...');
             await createUserWithEmailAndPassword(auth, state.email, state.password);
+            console.log('logged in...')
             setToggleDrawer(false);
         } catch (e) {
             console.log(e)
@@ -21,7 +23,9 @@ const Form = ({ setToggleDrawer, createUserWithEmailAndPassword, auth, signInWit
 
     const handleLogin = async () => {
         try {
+            console.log('start logged in...');
             await signInWithEmailAndPassword(auth, state.email, state.password);
+            console.log('logged in...')
             setToggleDrawer(false);
         } catch (e) {
             console.log(e)
