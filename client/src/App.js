@@ -22,7 +22,7 @@ const App = () => {
 	const { changeUserState } = bindActionCreators(userActions, dispatch);
 	
 	const [toggleDrawer, setToggleDrawer] = useState(false);
-
+	
 	onAuthStateChanged(auth, (currUser) => {
 		changeUserState(currUser);
 	});
@@ -32,7 +32,7 @@ const App = () => {
 			<Header setToggleDrawer={setToggleDrawer} />
 			<Drawer toggleDrawer={toggleDrawer} setToggleDrawer={setToggleDrawer} />
 			<Routes>
-				<Route path="/" exact element={<Home />} />
+				<Route path="/" exact element={<Home setToggleDrawer={setToggleDrawer} />} />
 			</Routes>
 		</>
 	);

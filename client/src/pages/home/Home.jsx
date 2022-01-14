@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const Home = () => {
+const Home = ({ setToggleDrawer }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { setInitialSportsState, changeSportsState } = bindActionCreators(
@@ -81,9 +81,10 @@ const Home = () => {
 
     const handleOpenModal = (bet) => {
         if (!user) {
+            setToggleDrawer(true);
             return;
         }
-        
+
         setOpen(true);
         setBet(bet);
     };
