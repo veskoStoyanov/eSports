@@ -123,9 +123,8 @@ const Home = ({ setToggleDrawer }) => {
                 className={classes.title}>
                 {sports.name}
                 <Button
-                    style={{ backgroundColor: '#757de8' }}
                     onClick={() => sortedByTime ? sortSportsByLeagues() : sortSportsByTime()}
-                    variant="contained" color="success" size="large">
+                    variant="contained" color="primary" size="large">
                     {sortedByTime ? ' Sort by league' : 'Sort by time'}
                 </Button>
             </h1>
