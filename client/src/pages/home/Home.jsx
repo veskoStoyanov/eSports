@@ -10,8 +10,9 @@ import { Wrapper } from './Home.style';
 import { Button } from '@mui/material';
 import TableHead from './TableHead';
 import TableRow from './TableRow';
+import Modal from './Modal';
 // Modules
-import { getSports } from '../../modules/api';
+import { getSports, postBet } from '../../modules/api';
 import { generateUnicId } from '../../modules';
 
 // Actions
@@ -35,9 +36,11 @@ const Home = () => {
     );
 
     const { sports } = useSelector((state) => state.sportsState);
-    
-    const [sortedByTime, setSortedByTime] = useState(true);
+    const { user } = useSelector((state) => state.userState);
 
+    const [sortedByTime, setSortedByTime] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [bet, setBet] = useState('');
     const initial = async () => {
         try {
             const { data } = await getSports();
@@ -57,6 +60,26 @@ const Home = () => {
         setSortedByTime(false);
         const matches = sports.matches.sort((a, b) => a.sport.localeCompare(b.sport));
         changeSportsState({ ...sports, matches })
+    };
+
+    const handleOpenModal = (bet) => {
+        setOpen(true);
+        setBet(bet);
+    };
+
+    const createBet = (amount, name) => {
+        setOpen(false);
+        setBet('');
+        const body = {
+            amount,
+            name,
+        }
+        try {
+            const { data } = postBet(body,  user.uid);
+            console.log(data)
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     useEffect(() => {
@@ -91,11 +114,15 @@ const Home = () => {
                             name={match.name}
                             startDate={match.startDate}
                             bets={match.bets}
+                            handleOpenModal={handleOpenModal}
+                            setOpen={setOpen}
+
                         />
                     </Fragment>)
                 }
 
             </table>
+            <Modal createBet={createBet} bet={bet} setOpen={setOpen} open={open} />
         </Wrapper>
     )
 };

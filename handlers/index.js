@@ -1,8 +1,8 @@
 const { initialize } = require('express-openapi');
 
 const Sports = require('./sports.handler');
-
-const apiHandlers = { ...Sports };
+const Bet = require('./bets.handler');
+const apiHandlers = { ...Sports, ...Bet };
 const apiSpecFile = require('./openapi.json');
 
 module.exports = (app) => {

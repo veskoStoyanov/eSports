@@ -34,7 +34,7 @@ const Form = ({ setToggleDrawer, createUserWithEmailAndPassword, auth, signInWit
                 {
                     Object.keys(state).map(x => (<FormControl key={x}>
                         <InputLabel htmlFor={`my-${x}`}>{x}</InputLabel>
-                        <Input onChange={handleChange} id={`my-${x}`} name={x} />
+                        <Input value={state[x]} onChange={handleChange} id={`my-${x}`} name={x} />
                         <FormHelperText id="my-helper-text">Please fill your {x}.</FormHelperText>
                     </FormControl>))
                 }

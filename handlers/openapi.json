@@ -1,0 +1,128 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "SportsDirectApi",
+    "version": "1.0.0",
+    "description": "Movie Direct API",
+    "contact": {
+      "email": "veskostoyanovv@abv.bg",
+      "name": "Vesko Stoyanov",
+      "url": "http://sports.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Development server"
+    },
+    {
+      "url": "https://api.movie.com/v1/dir/",
+      "description": "Production Api server"
+    }
+  ],
+  "paths": {
+    "/matches": {
+      "get": {
+        "summary": "Get all sports",
+        "description": "Get all sports.",
+        "tags": [
+          "sports"
+        ],
+        "operationId": "getSports",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/bet/{id}": {
+      "get": {
+        "summary": "Get all bets for a user",
+        "description": "Get all bets for a user.",
+        "tags": [
+          "bet"
+        ],
+        "operationId": "getBets",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "summary": "Get all bets for a user",
+        "description": "Get all bets for a user.",
+        "tags": [
+          "bet"
+        ],
+        "operationId": "createBet",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "Update bet amount",
+        "description": "Get all bets for a user.",
+        "tags": [
+          "bet"
+        ],
+        "operationId": "updateBet",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Update bet amount",
+        "description": "Get all bets for a user.",
+        "tags": [
+          "bet"
+        ],
+        "operationId": "removeBet",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+   
+    }
+  }
+}

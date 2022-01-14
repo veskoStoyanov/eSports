@@ -11,13 +11,17 @@ require('dotenv').config({
 
 app.use(morgan('dev'));
 app.use(cors());
+
+// Connect to database
+require('./config/db')();
+
 // Express body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // OpenApi
-require('./hadlers')(app);
-const apiSpec = require('./hadlers/openapi.json');
+require('./handlers')(app);
+const apiSpec = require('./handlers/openapi.json');
 app.use(
 	'/swagger',
 	swaggerUi.serve,

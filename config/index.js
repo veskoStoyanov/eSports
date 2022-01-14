@@ -7,7 +7,10 @@ const dateFormatter = {
 	sports: 'DD MMM HH:mm'
 }
 
+const dbUrl = 'mongodb://localhost:27017/sports';
+
 module.exports = {
 	urls,
-	dateFormatter
+	dateFormatter,
+	dbUrl
 };
