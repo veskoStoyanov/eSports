@@ -4,11 +4,9 @@ import { bindActionCreators } from 'redux';
 import { styled, alpha } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 
-import { AppBar, Box, Toolbar, IconButton, InputBase, Badge, MenuItem, Menu } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 
 // Actions
 import { sportsActions } from '../../store/actions';
@@ -76,7 +74,7 @@ const Header = ({ setToggleDrawer }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar style={{backgroundColor: '#757de8'}} position="static">
         <Toolbar>
           <img className={classes.logo} src='https://ultraplay.co/wp-content/themes/UltraPlay/images/up_logo.png' alt='logo' />
           <Search>
@@ -99,7 +97,7 @@ const Header = ({ setToggleDrawer }) => {
               color="inherit"
               onClick={() => setToggleDrawer(true)}
             >
-              <AccountCircle />
+              <AccountCircle fontSize="large" />
             </IconButton>
           </Box>
         </Toolbar>
