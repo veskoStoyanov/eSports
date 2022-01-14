@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 
@@ -8,9 +8,18 @@ import { Box, Container } from '@mui/material';
 import Form from './Form';
 import Profile from './Profile';
 
-const Drawer = ({ toggleDrawer, setToggleDrawer }) => {
-    const { user } = useSelector((state) => state.userState);
+import { putBets, deleteBet } from '../../modules/api';
 
+// Actions
+import { userActions } from '../../store/actions';
+
+const Drawer = ({ toggleDrawer, setToggleDrawer }) => {
+    const { user, bets } = useSelector((state) => state.userState);
+    const dispatch = useDispatch();
+    const { updateBetState, removeBet } = bindActionCreators(
+        userActions,
+        dispatch
+    );
     return (
         <DrawerApp
             anchor="right"
@@ -18,11 +27,12 @@ const Drawer = ({ toggleDrawer, setToggleDrawer }) => {
             onClose={() => setToggleDrawer(false)}
         >
             <Box
-                sx={{ width: 250 }}
+                sx={{ width: user ? 550 : 250 }}
                 role="presentation"
             >
-                <Container style={{ display: 'flex', alignItems: 'center', marginTop: 50 }}>
-                    {user ? <Profile signOut={signOut} auth={auth} /> : <Form auth={auth} createUserWithEmailAndPassword={createUserWithEmailAndPassword} signInWithEmailAndPassword={signInWithEmailAndPassword} setToggleDrawer={setToggleDrawer} />}
+                <Container style={{ marginTop: 50 }}>
+                    {user ? <Profile deleteBet={deleteBet}
+	            removeBet={removeBet} updateBetState={updateBetState} uid={user.uid} putBets={putBets} bets={bets} signOut={signOut} auth={auth} /> : <Form auth={auth} createUserWithEmailAndPassword={createUserWithEmailAndPassword} signInWithEmailAndPassword={signInWithEmailAndPassword} setToggleDrawer={setToggleDrawer} />}
                 </Container>
 
             </Box>

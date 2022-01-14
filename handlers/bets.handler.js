@@ -1,16 +1,15 @@
-const { getAllSports } = require('../controllers/sports.controller');
-const { addBet, fetchBets } = require('../controllers/bets.controller');
+const { addBet, fetchBets, putBet, deleteBet } = require('../controllers/bets.controller');
 
-const getBets = async (_, res) => {
+const getBets = async (req, res) => {
 	let bets = [];
 	try {
-		bets = await fetchBets();
+		bets = await fetchBets(req.params.id);
 	} catch (e) {
 		console.log(e);
 		return res.status(400).json({ success: false, errors: [''] });
 	}
 
-	return res.status(200).json(sports);
+	return res.status(200).json(bets);
 };
 
 const createBet = async (req, res) => {
@@ -25,28 +24,28 @@ const createBet = async (req, res) => {
 	return res.status(200).json(bet);
 };
 
-const updateBet = async (_, res) => {
-	let sports = [];
+const updateBet = async (req, res) => {
+	let bet = [];
 	try {
-		sports = await getAllSports();
+		bet = await putBet(req.body.id, req.body.amount);
 	} catch (e) {
 		console.log(e);
 		return res.status(400).json({ success: false, errors: [''] });
 	}
 
-	return res.status(200).json(sports);
+	return res.status(200).json(bet);
 };
 
-const removeBet = async (_, res) => {
-	let sports = [];
+const removeBet = async (req, res) => {
+	let bet = [];
 	try {
-		sports = await getAllSports();
+		bet = await deleteBet(req.query.bet);
 	} catch (e) {
 		console.log(e);
 		return res.status(400).json({ success: false, errors: [''] });
 	}
 
-	return res.status(200).json(sports);
+	return res.status(200).json(bet);
 };
 module.exports = {
 	getBets,

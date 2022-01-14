@@ -12,11 +12,11 @@ import TableHead from './TableHead';
 import TableRow from './TableRow';
 import Modal from './Modal';
 // Modules
-import { getSports, postBet } from '../../modules/api';
+import { getSports, postBet, fetchBets } from '../../modules/api';
 import { generateUnicId } from '../../modules';
 
 // Actions
-import { sportsActions } from '../../store/actions';
+import { sportsActions, userActions } from '../../store/actions';
 
 const useStyles = makeStyles(() => ({
     table: {
@@ -35,20 +35,32 @@ const Home = () => {
         dispatch
     );
 
+    const { changeUserBetsState, addBet } = bindActionCreators(
+        userActions,
+        dispatch
+    );
+
     const { sports } = useSelector((state) => state.sportsState);
     const { user } = useSelector((state) => state.userState);
 
     const [sortedByTime, setSortedByTime] = useState(true);
     const [open, setOpen] = useState(false);
     const [bet, setBet] = useState('');
+
     const initial = async () => {
         try {
             const { data } = await getSports();
-            setInitialSportsState(data);
+            setInitialSportsState(data);   
         } catch (e) {
             console.log(e);
         }
     };
+
+    const getUserBets = async () => {
+        if (!user) { return; }
+        const { data } = await fetchBets(user.uid);
+        changeUserBetsState(data);
+    }
 
     const sortSportsByTime = () => {
         setSortedByTime(true);
@@ -59,7 +71,7 @@ const Home = () => {
     const sortSportsByLeagues = () => {
         setSortedByTime(false);
         const matches = sports.matches.sort((a, b) => a.sport.localeCompare(b.sport));
-        changeSportsState({ ...sports, matches })
+        changeSportsState({ ...sports, matches });
     };
 
     const handleOpenModal = (bet) => {
@@ -67,7 +79,7 @@ const Home = () => {
         setBet(bet);
     };
 
-    const createBet = (amount, name) => {
+    const createBet = async (amount, name) => {
         setOpen(false);
         setBet('');
         const body = {
@@ -75,8 +87,9 @@ const Home = () => {
             name,
         }
         try {
-            const { data } = postBet(body,  user.uid);
+            const { data } = await postBet(body, user.uid);
             console.log(data)
+            addBet(data);
         } catch (e) {
             console.log(e);
         }
@@ -85,6 +98,10 @@ const Home = () => {
     useEffect(() => {
         initial();
     }, []);
+
+    useEffect(() => {
+        getUserBets();
+    }, [ user ]);
 
     if (!sports) {
         return <></>;

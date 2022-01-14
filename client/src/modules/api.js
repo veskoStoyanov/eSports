@@ -20,3 +20,9 @@ export const fetch = (url, method = 'GET', data) => {
 export const getSports = () => fetch(urls.sports);
 
 export const postBet  = (data, id) => fetch(`${urls.bet}/${id}`, 'POST', data);
+
+export const fetchBets  = (id) => fetch(`${urls.bet}/${id}`);
+
+export const putBets  = (data, id) => fetch(`${urls.bet}/${id}`, 'PUT', data);
+
+export const deleteBet  = (id, uui) => fetch(`${urls.bet}/${uui}?bet=${id}`, 'DELETE');

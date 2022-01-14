@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // Pages
 import { Home } from './pages';
@@ -15,10 +15,12 @@ import { userActions } from './store/actions';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
+
+
 const App = () => {
 	const dispatch = useDispatch();
 	const { changeUserState } = bindActionCreators(userActions, dispatch);
-
+	
 	const [toggleDrawer, setToggleDrawer] = useState(false);
 
 	onAuthStateChanged(auth, (currUser) => {
