@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Server for front-end task at UltraPlay",
   "main": "server.js",
-  "scripts": {
-    "start": "node index",
+  "scripts": {  
+    "inst": "npm install && cd client && npm install",
     "dev": "nodemon index",
+    "client": "cd client & npm start",
+    "start": "concurrently \"npm run dev\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +22,7 @@
   "homepage": "https://github.com/UltraplayCareers/Sportsbook#readme",
   "dependencies": {
     "axios": "^0.24.0",
+    "concurrently": "^7.0.0",
     "cors": "^2.8.4",
     "date-and-time": "^2.1.0",
     "dotenv": "^11.0.0",
