@@ -5,5 +5,6 @@ export const CHANGE_USER_BETS_STATE = 'CHANGE_USER_BETS_STATE';
 export const UPDATE_BET_STATE = 'UPDATE_BET_STATE';
 export const REMOVE_BET = 'REMOVE_BET';
 export const ADD_BET = 'ADD_BET';
+export const SET_ERROR_STATE = 'SET_ERROR_STATE';
 
 

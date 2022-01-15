@@ -3,17 +3,15 @@ import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// Pages
-import { Home } from './pages';
-
-// Components
-import { Header, Drawer } from './components';
-
-// Actions
-import { userActions } from './store/actions';
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
+// Pages
+import { Home } from './pages';
+// Components
+import { Header, Drawer } from './components';
+// Actions
+import { userActions } from './store/actions';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -23,10 +21,10 @@ const App = () => {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (currUser) => {
-			console.log(currUser)
+			console.log(currUser);
 			changeUserState(currUser);
 		});
-	}, [])
+	}, []);
 
 	return (
 		<>

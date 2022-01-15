@@ -5,13 +5,11 @@ import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } f
 import { auth } from '../../firebase';
 
 import DrawerApp from '@mui/material/Drawer';
+import { Box, Container, IconButton } from '@mui/material';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import { Box, Container, IconButton } from '@mui/material';
 import Form from './Form';
 import Profile from './Profile';
-
-import { putBets, deleteBet } from '../../modules/api';
 
 // Actions
 import { userActions } from '../../store/actions';
@@ -37,11 +35,20 @@ const Drawer = ({ toggleDrawer, setToggleDrawer }) => {
             >
                 {isDrawerLeft ? <IconButton onClick={() => setIsDrawerLeft((prev) => !prev)}><ArrowCircleRightIcon fontSize="large" /></IconButton> : <IconButton onClick={() => setIsDrawerLeft((prev) => !prev)} ><ArrowCircleLeftIcon fontSize="large" /></IconButton>}
                 <Container style={{ marginTop: 50 }}>
-
-                    {user ? <Profile deleteBet={deleteBet}
-                        removeBet={removeBet} updateBetState={updateBetState} uid={user.uid} putBets={putBets} bets={bets} signOut={signOut} auth={auth} /> : <Form auth={auth} createUserWithEmailAndPassword={createUserWithEmailAndPassword} signInWithEmailAndPassword={signInWithEmailAndPassword} setToggleDrawer={setToggleDrawer} />}
+                    {user ?
+                        <Profile
+                            removeBet={removeBet}
+                            updateBetState={updateBetState}
+                            uid={user.uid} bets={bets}
+                            signOut={signOut} auth={auth}
+                        /> :
+                        <Form
+                            auth={auth}
+                            createUserWithEmailAndPassword={createUserWithEmailAndPassword}
+                            signInWithEmailAndPassword={signInWithEmailAndPassword}
+                            setToggleDrawer={setToggleDrawer}
+                        />}
                 </Container>
-
             </Box>
         </DrawerApp>
     )

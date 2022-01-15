@@ -1,11 +1,7 @@
 import React, { Fragment } from 'react';
 import { makeStyles } from '@mui/styles';
-import {
-	Table,
-	TableContainer,
-	Paper,
-} from '@mui/material';
 
+import { Table, TableContainer, Paper } from '@mui/material';
 import MTableHead from './MTableHead';
 import MTableRow from './MTableRow';
 
@@ -52,7 +48,13 @@ const MTable = ({ matches, generateUnicId, handleOpenModal }) => {
 							<MTableHead sport={match.sport} classes={classes} />
 						)}
 
-            <MTableRow key={match.name} name={match.name} startDate={match.startDate} bets={match.bets} handleOpenModal={handleOpenModal} />
+						<MTableRow
+							key={match.name}
+							name={match.name}
+							startDate={match.startDate}
+							bets={match.bets}
+							handleOpenModal={handleOpenModal}
+						/>
 					</Fragment>
 				))}
 			</Table>

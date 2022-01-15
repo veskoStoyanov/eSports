@@ -12,9 +12,7 @@ const Form = ({ setToggleDrawer, createUserWithEmailAndPassword, auth, signInWit
 
     const handleRegister = async () => {
         try {
-            console.log('start logged in...');
             await createUserWithEmailAndPassword(auth, state.email, state.password);
-            console.log('logged in...')
             setToggleDrawer(false);
         } catch (e) {
             console.log(e)
@@ -23,9 +21,7 @@ const Form = ({ setToggleDrawer, createUserWithEmailAndPassword, auth, signInWit
 
     const handleLogin = async () => {
         try {
-            console.log('start logged in...');
             await signInWithEmailAndPassword(auth, state.email, state.password);
-            console.log('logged in...')
             setToggleDrawer(false);
         } catch (e) {
             console.log(e)
@@ -36,11 +32,19 @@ const Form = ({ setToggleDrawer, createUserWithEmailAndPassword, auth, signInWit
         <>
             <Box>
                 {
-                    Object.keys(state).map(x => (<FormControl key={x}>
-                        <InputLabel htmlFor={`my-${x}`}>{x}</InputLabel>
-                        <Input value={state[x]} onChange={handleChange} id={`my-${x}`} name={x} />
-                        <FormHelperText id="my-helper-text">Please fill your {x}.</FormHelperText>
-                    </FormControl>))
+                    Object.keys(state).map(x => (
+                        <FormControl key={x}>
+                            <InputLabel htmlFor="my-input">{x}</InputLabel>
+                            <Input
+                                value={state[x]}
+                                onChange={handleChange}
+                                id={`my-${x}`}
+                                name={x}
+                                type={x === 'password' ? x : 'text'}
+                                aria-describedby="my-helper-text" />
+                            <FormHelperText id="my-helper-text">We'll never share your {x}.</FormHelperText>
+                        </FormControl>
+                    ))
                 }
 
                 <Box style={{ marginTop: 20 }} >

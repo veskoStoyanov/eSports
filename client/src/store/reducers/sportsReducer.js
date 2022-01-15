@@ -1,6 +1,7 @@
 import {
 	SET_INITIAL_SPORTS_STATE,
 	CHANGE_SPORTS_STATE,
+	SET_ERROR_STATE
 } from '../../constants/store';
 
 const initialState = {

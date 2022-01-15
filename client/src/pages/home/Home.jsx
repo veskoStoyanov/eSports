@@ -1,23 +1,18 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { makeStyles } from '@mui/styles';
 
-import { bindActionCreators } from 'redux';
-
-// Styled Components
-import { Wrapper } from './Home.style';
-
+// Components
 import { Button } from '@mui/material';
-
+import { Wrapper } from './Home.style';
 import Modal from './Modal';
-// Modules
-import { getSports, postBet, fetchBets } from '../../modules/api';
+import MTable from './MTable'
+
 import { generateUnicId } from '../../modules';
 
 // Actions
 import { sportsActions, userActions } from '../../store/actions';
-
-import MTable from './MTable'
 
 const useStyles = makeStyles(() => ({
     table: {
@@ -52,19 +47,11 @@ const Home = ({ setToggleDrawer }) => {
     const [open, setOpen] = useState(false);
     const [bet, setBet] = useState('');
 
-    const initial = async () => {
-        try {
-            const { data } = await getSports();
-            setInitialSportsState(data);
-        } catch (e) {
-            console.log(e);
-        }
-    };
+    const initial = async () => setInitialSportsState();
 
     const getUserBets = async () => {
         if (!user) { return; }
-        const { data } = await fetchBets(user.uid);
-        changeUserBetsState(data);
+        changeUserBetsState(user.uid);
     }
 
     const sortSportsByTime = () => {
@@ -96,12 +83,8 @@ const Home = ({ setToggleDrawer }) => {
             amount,
             name,
         }
-        try {
-            const { data } = await postBet(body, user.uid);
-            addBet(data);
-        } catch (e) {
-            console.log(e);
-        }
+
+        addBet(body, user.uid);
     };
 
     useEffect(() => {

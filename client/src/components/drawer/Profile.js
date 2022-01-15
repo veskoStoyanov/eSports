@@ -1,26 +1,12 @@
 import { Fragment } from 'react';
+
 import { Button, Grid, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-const Profile = ({
-	signOut,
-	auth,
-	bets,
-	putBets,
-	uid,
-	updateBetState,
-	deleteBet,
-	removeBet,
-}) => {
-	const handleDeleteBet = async (bet) => {
-		try {
-			await deleteBet(bet._id, uid);
-			removeBet(bet._id);
-		} catch (e) {
-			console.log(e);
-		}
-	};
+const Profile = ({ signOut, auth, bets, uid, updateBetState, removeBet }) => {
+	const handleDeleteBet = async (bet) => removeBet(bet._id, uid);
+
 	const handleUpdate = async (bet, shouldAdd) => {
 		const amount = shouldAdd ? +bet.amount + 5 : +bet.amount - 5;
 		if (amount <= 0) {
@@ -28,15 +14,10 @@ const Profile = ({
 			return;
 		}
 
-		const { data } = await putBets({ id: bet._id, amount }, uid);
-		updateBetState(data);
+		updateBetState({ id: bet._id, amount }, uid);
 	};
 
-	const handleLoggedOut = async () => {
-		console.log('start logged out...');
-		await signOut(auth)
-		console.log('logged out...');
-	}
+	const handleLoggedOut = async () => signOut(auth);
 
 	return (
 		<>
